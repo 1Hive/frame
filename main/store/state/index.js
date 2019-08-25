@@ -112,7 +112,7 @@ const initial = {
       }
     },
     connection: {
-      network: main('connection.network', '1'),
+      network: main('connection.network', '93'),
       local: {
         on: main('connection.local.on', false),
         status: 'loading',
@@ -139,6 +139,12 @@ const initial = {
             }
           },
           42: {
+            current: 'direct',
+            options: {
+              direct: 'direct'
+            }
+          },
+          93: {
             current: 'direct',
             options: {
               direct: 'direct'
@@ -174,6 +180,13 @@ const initial = {
             options: {
               infura: 'infuraKovan',
               custom: main('connection.secondary.settings.42.options.custom', '')
+            }
+          },
+          93: {
+            current: 'custom',
+            options: {
+              infura: 'infuraFlora',
+              custom: main('connection.secondary.settings.93.options.custom', 'http://ethinzo3d-dns-reg1.eastus.cloudapp.azure.com:8540')
             }
           }
         },

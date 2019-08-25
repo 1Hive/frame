@@ -56,9 +56,12 @@ class Provider extends EventEmitter {
   getCoinbase (payload, res) {
     accounts.getAccounts((err, accounts) => {
       if (err) return this.resError(`signTransaction Error: ${JSON.stringify(err)}`, payload, res)
+      console.log('payload', payload)
       res({ id: payload.id, jsonrpc: payload.jsonrpc, result: accounts[0] })
     })
   }
+
+
 
   getAccounts (payload, res) {
     res({ id: payload.id, jsonrpc: payload.jsonrpc, result: accounts.getSelectedAddresses().map(a => a.toLowerCase()) })
@@ -179,12 +182,15 @@ class Provider extends EventEmitter {
   }
 
   getGasPrice (rawTx, res) {
-    this.connection.send({ id: 1, jsonrpc: '2.0', method: 'eth_gasPrice' }, res)
+    //fetch gas from worker
+    // this.connection.send({ id: 1, jsonrpc: '2.0', method: 'eth_gasPrice' }, res)
   }
 
   getGasEstimate (rawTx, res) {
-    this.connection.send({ id: 1, jsonrpc: '2.0', method: 'eth_estimateGas', params: [rawTx] }, res)
+    //fetch gas from worker
+    // this.connection.send({ id: 1, jsonrpc: '2.0', method: 'eth_estimateGas', params: [rawTx] }, res)
   }
+
 
   getNonce (rawTx, res) {
     if (this.nonce.age && Date.now() - this.nonce.age < 30 * 1000 && this.nonce.account === rawTx.from && this.nonce.current) {
@@ -274,6 +280,8 @@ class Provider extends EventEmitter {
       cb(null, res)
     })
   }
+
+
 
   send (payload, res = () => {}) {
     if (payload.method === 'eth_coinbase') return this.getCoinbase(payload, res)

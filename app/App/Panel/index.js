@@ -10,37 +10,41 @@ import Badge from './Badge'
 // import DevTools from 'restore-devtools'
 // <DevTools />
 
-const networks = { 1: 'Mainnet', 3: 'Ropsten', 4: 'Rinkeby', 42: 'Kovan' }
+const networks = { 1: 'Mainnet', 3: 'Ropsten', 4: 'Rinkeby', 42: 'Kovan', 93: 'Flora' }
 
 class Panel extends React.Component {
-  indicator (connection) {
+  indicator(connection) {
     const status = [connection.local.status, connection.secondary.status]
     if (status.indexOf('connected') > -1) {
-      return <div className='panelDetailIndicatorInner panelDetailIndicatorGood' />
+      return <div className="panelDetailIndicatorInner panelDetailIndicatorGood" />
     } else {
-      return <div className='panelDetailIndicatorInner panelDetailIndicatorBad' />
+      return <div className="panelDetailIndicatorInner panelDetailIndicatorBad" />
     }
   }
 
-  render () {
+  render() {
     const open = this.store('tray.open')
     const transform = open ? 'translate3d(0px, 0px, 0px)' : 'translate3d(370px, 0px, 0px)' // open ? 'translate3d(0px, 0px, 0px)' : 'translate3d(370px, 0px, 0px)'
-    const transition = this.store('tray.initial') ? '0.64s cubic-bezier(.82,0,.12,1) all' : '0.16s cubic-bezier(.82,0,.12,1) all'
+    const transition = this.store('tray.initial')
+      ? '0.64s cubic-bezier(.82,0,.12,1) all'
+      : '0.16s cubic-bezier(.82,0,.12,1) all'
     return (
-      <div id='panel' style={{ transform, transition }}>
-        <div className='panelSwoop'>{svg.swoop()}</div>
-        <div className='panelSwoopBottom'>{svg.swoop()}</div>
+      <div id="panel" style={{ transform, transition }}>
+        <div className="panelSwoop">{svg.swoop()}</div>
+        <div className="panelSwoopBottom">{svg.swoop()}</div>
         <div className={this.store('view.addAccount') ? 'panelMenu panelMenuAddMode' : 'panelMenu'}>
-          <div className='panelDetail'>
-            <div className='panelDetailIndicator'>
-              {this.indicator(this.store('main.connection'))}
-            </div>
-            <div className='panelDetailText'>{networks[this.store('main.connection.network')]}</div>
+          <div className="panelDetail">
+            <div className="panelDetailIndicator">{this.indicator(this.store('main.connection'))}</div>
+            <div className="panelDetailText">{networks[this.store('main.connection.network')]}</div>
           </div>
-          <div className='panelMenuItem' style={this.store('panel.view') !== 'default' ? { transform: 'rotate(180deg)' } : {}} onMouseDown={() => this.store.toggleSettings()}>
-            <span className='panelMenuIconArrow'>{svg.octicon('chevron-right', { height: 14 })}</span>
-            <span className='panelMenuIconArrow'>{svg.octicon('chevron-right', { height: 14 })}</span>
-            <span className='panelMenuIconArrow'>{svg.octicon('chevron-right', { height: 14 })}</span>
+          <div
+            className="panelMenuItem"
+            style={this.store('panel.view') !== 'default' ? { transform: 'rotate(180deg)' } : {}}
+            onMouseDown={() => this.store.toggleSettings()}
+          >
+            <span className="panelMenuIconArrow">{svg.octicon('chevron-right', { height: 14 })}</span>
+            <span className="panelMenuIconArrow">{svg.octicon('chevron-right', { height: 14 })}</span>
+            <span className="panelMenuIconArrow">{svg.octicon('chevron-right', { height: 14 })}</span>
           </div>
         </div>
         <Local />
