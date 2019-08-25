@@ -372,6 +372,7 @@ class Signer extends React.Component {
                 <div className="signerBalance">
                   <span className="signerBalanceCurrency">{'🌸'}</span>
                   {pollen === undefined ? '-.------' : parseFloat(pollen).toFixed(6)}
+                  <span className='discount'>{'3'}</span>
                 </div>
                 <div className="signerBalance">
                   <span className="signerBalanceCurrency">{'🍯'}</span>

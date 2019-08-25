@@ -76,6 +76,9 @@ export default (state, cb) => {
           if (store('balances', address, DISCOUNT) !== balance) store.setBalance(address, DISCOUNT, balance)
         }
       )
+
+      fetch('http://localhost:3001/0x').then(res => res.json())
+      .then(res => console.log(res))
     })
   }
 

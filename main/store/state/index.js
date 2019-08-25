@@ -28,6 +28,7 @@ const initial = {
     initial: true
   },
   balances: {},
+  discount: 0,
   selected: {
     minimized: true,
     open: false,
